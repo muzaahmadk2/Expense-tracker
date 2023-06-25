@@ -5,6 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import classes from "./NavBar.module.css";
 import Welcome from "./Welcome/Welcome";
+import Profile from "./Profile/Profile";
 
 
 function MyNavbar() {
@@ -47,6 +48,7 @@ function MyNavbar() {
       </Navbar>
       <Routes>
       {isLoggedIn && <Route path="/" element={<Welcome/>} />}
+      <Route path="/profile" element={<Profile />}></Route>
       </Routes>
       
       <div className={classes.margin}></div>

@@ -72,6 +72,8 @@ const AuthForm = (props) => {
 
   return (
     <div>
+    <img src={require("./blue.jpg")} alt="img" className={classes.backgroundDiv} />
+    <div className={classes.loginBox}>
       <Card className={classes.Card}>
         <h1>{isSignUp ? "Sign Up" : "Log In"}</h1>
         <Form onSubmit={submitHandler}>
@@ -129,6 +131,7 @@ const AuthForm = (props) => {
             : "Dont have an account ? Sign Up"}
         </button>
       </section>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,10 @@
 .welcome {
-    font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+    font-size: 20px;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin-left: 10px;
+    margin-right: 10px;
     margin-top: 5px;
     padding-bottom: 10px;
     border-bottom: 2px solid grey;
