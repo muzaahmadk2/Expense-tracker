@@ -1,5 +1,5 @@
-import React, { useContext, useRef, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useContext,useEffect, useRef, useState } from "react";
+import { Link,redirect } from "react-router-dom";
 import "./Profile.css";
 import { Form, Button, Row, Col,Spinner } from "react-bootstrap";
 import AuthContext from "../../Store/Auth-Context";
@@ -10,18 +10,66 @@ const Profile = () => {
   const fullNameRef = useRef("");
   const photoUrlRef = useRef("");
 
+  const cancelHandler = () => {
+    <redirect to="/" />
+  }
+
+  const getData = () => {
+    let url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB9ZONkhe98ETh530TgqVIj63rXXVIWPDs";
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        idToken: authCtx.token,
+      }),
+      header: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = data.error.message;
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        data.users.forEach((element) => {
+          console.log(data.users);
+          fullNameRef.current.value = element.displayName
+            ? element.displayName
+            : "";
+          photoUrlRef.current.value = element.photoUrl ? element.photoUrl : "";
+        });
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  }
+  useEffect(() => {
+    getData();
+  },[]);
+
   const updateUserHandler = (e) => {
     e.preventDefault();
     setIsLoading(true);
     const fullName = fullNameRef.current.value;
     const photoUrl = photoUrlRef.current.value;
+    if (fullName.length < 4 || photoUrl.length < 4) {
+      alert("please enter all fields");
+      return;
+    }
     let url =
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyB9ZONkhe98ETh530TgqVIj63rXXVIWPDs";
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
         idToken: authCtx.token,
-        name: fullName,
+        displayName: fullName,
         photoUrl: photoUrl,
         returnSecureToken: true,
       }),
@@ -44,6 +92,7 @@ const Profile = () => {
         alert("Profile Updated!!!");
         fullNameRef.current.value = "";
         photoUrlRef.current.value = "";
+        
       })
       .catch((err) => {
         alert(err.message);
@@ -62,6 +111,7 @@ const Profile = () => {
         <div className="contact"><h5>Contact Details</h5><span><Link to="/"><Button
                 variant="outline-danger"
                 type="submit"
+                onClick={cancelHandler}
               >
                 Cancel
               </Button></Link> </span></div>

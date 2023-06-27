@@ -48,7 +48,7 @@ function MyNavbar() {
       </Navbar>
       <Routes>
       {isLoggedIn && <Route path="/" element={<Welcome/>} />}
-      <Route path="/profile" element={<Profile />}></Route>
+      {isLoggedIn && <Route path="/profile" element={<Profile />} />}
       </Routes>
       
       <div className={classes.margin}></div>
