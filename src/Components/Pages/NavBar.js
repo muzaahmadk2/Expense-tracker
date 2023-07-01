@@ -12,6 +12,10 @@ function MyNavbar() {
 
     const authCtx = useContext(AuthContext);
     const isLoggedIn = authCtx.isLoggedIn;
+
+    const logoutHandler = () => {
+      authCtx.logout();
+    }
   return (
     <div>
       <Navbar bg="dark" variant="light">
@@ -25,7 +29,6 @@ function MyNavbar() {
               as={Link}
               to="/home"
               className={classes.titlelabels}
-              
             >
               Home
             </Nav.Link>
@@ -43,11 +46,13 @@ function MyNavbar() {
             >
               About Us
             </Nav.Link>
+            {isLoggedIn && <button className={classes.button} onClick={logoutHandler} >Logout</button>}
           </Nav>
         </Container>
       </Navbar>
       <Routes>
       {isLoggedIn && <Route path="/" element={<Welcome/>} />}
+      {isLoggedIn && <Route path="/home" element={<Welcome/>} />}
       {isLoggedIn && <Route path="/profile" element={<Profile />} />}
       </Routes>
       

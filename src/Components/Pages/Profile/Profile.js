@@ -1,17 +1,18 @@
 import React, { useContext,useEffect, useRef, useState } from "react";
-import { Link,redirect } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { Form, Button, Row, Col,Spinner } from "react-bootstrap";
 import AuthContext from "../../Store/Auth-Context";
 
 const Profile = () => {
   const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
   const [isLoading,setIsLoading] = useState(false);
   const fullNameRef = useRef("");
   const photoUrlRef = useRef("");
 
   const cancelHandler = () => {
-    <redirect to="/" />
+    navigate('/home');
   }
 
   const getData = () => {
@@ -92,6 +93,7 @@ const Profile = () => {
         alert("Profile Updated!!!");
         fullNameRef.current.value = "";
         photoUrlRef.current.value = "";
+        navigate('/home');
         
       })
       .catch((err) => {
