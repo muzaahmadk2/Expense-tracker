@@ -1,12 +1,18 @@
 import React, { useContext, useState } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, Link,useNavigate, Routes } from "react-router-dom";
 import "./Welcome.css";
 import { Button } from "react-bootstrap";
 import AuthContext from "../../Store/Auth-Context";
 
 
+
 function Welcome() {
   const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const addExpenseHandler = () => {
+    navigate('/addexpenses')
+  }
  
   const verifyEmailHandler = () => {
 
@@ -41,6 +47,7 @@ function Welcome() {
   }
 
   return (
+    <div>
     <div className="welcome">
       <span >
         Welcome To Expense Tracker!!!
@@ -51,6 +58,11 @@ function Welcome() {
       <div className="verify">
       <Button variant="outline-info"  onClick={verifyEmailHandler}>Verify Your Email</Button>
       </div>
+    </div>
+    <section className="addExpense">
+      <button onClick={addExpenseHandler}>Add Expense </button> 
+    </section>
+
     </div>
   );
 }

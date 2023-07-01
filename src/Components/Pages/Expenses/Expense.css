@@ -1,0 +1,51 @@
+.expdes {
+  /* color: black; */
+  font-weight: bold;
+  font-size: 30px;
+  margin-left: 5%;
+  color: #17181c;
+  
+}
+.expCat {
+
+  margin-left: 40%;
+  font-size: 20px;
+  font-weight: 800;
+  color: #17181c;
+  
+  margin-right: 10px;
+  display: flex;
+}
+.expAmount {
+  
+  margin-left: 800px
+}
+.delexp {
+  background-color: blue;
+  font-family: "Times New Roman", Times, serif;
+
+  color: white;
+  margin-left: 10px;
+}
+.editexp {
+  /* background-color: gray; */
+  background-color: blue;
+  font-size: 15px;
+  font-family: "Times New Roman", Times, serif;
+  margin-left: 4%;
+}
+
+.moneyItemslabel {
+  text-align: center;
+  border: 2px solid grey;
+  border-width: 1px;
+  border-color: rgb(192, 192, 192);
+  font-family: "product sans";
+  width: 25%;
+  height: 43px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 25px;
+  color: white;
+  background-color: darkred;
+}

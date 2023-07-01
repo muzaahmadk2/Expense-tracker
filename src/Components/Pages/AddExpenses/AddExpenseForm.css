@@ -1,0 +1,41 @@
+.addExpenseDiv {
+    display: flex;
+    box-shadow: 0 0 5px;
+    border: 2px solid grey;
+    margin: 30px;
+    padding: 20px;
+    text-align: center;
+  }
+  .addExpenseDiv h2 {
+    color: #17181c;
+    margin-left: 5%;
+    padding-top: 5px;
+    padding-bottom: 5%;
+    font-size: 60px;
+  }
+  .addExpenseLabel {
+    font-weight: bold;
+  }
+  .addExpenseInput {
+    width: 50%;
+    margin-left: 25%;
+  }
+  .addExpenseInput:hover{
+    box-shadow: 0 0 5px;
+  }
+  .addExpenseButton button{
+    width: 8rem;
+    margin-left: 2rem;
+  }
+  .addExpenseButton button:hover{
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+    background-color: #17181c;
+    box-shadow: 0 0 5px;
+  }
+  @media (max-width: 1000px) {
+    .addExpenseDiv {
+      flex-direction: column;
+      align-items: center;
+    }
+  }

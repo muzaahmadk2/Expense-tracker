@@ -6,6 +6,7 @@ import { Nav, Navbar, Container } from "react-bootstrap";
 import classes from "./NavBar.module.css";
 import Welcome from "./Welcome/Welcome";
 import Profile from "./Profile/Profile";
+import AddExpenseForm from "../Pages/AddExpenses/AddExpenseForm";
 
 
 function MyNavbar() {
@@ -57,6 +58,7 @@ function MyNavbar() {
       {isLoggedIn && <Route path="/" element={<Welcome/>} />}
       {isLoggedIn && <Route path="/home" element={<Welcome/>} />}
       {isLoggedIn && <Route path="/profile" element={<Profile />} />}
+      {isLoggedIn && <Route path="/addexpenses" element={<AddExpenseForm/>}/>}
       </Routes>
       
       <div className={classes.margin}></div>

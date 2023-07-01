@@ -1,0 +1,14 @@
+.myCardDiv {
+    position: relative;
+    display: flex;
+    margin-left: 8%;
+    margin-right: 8%;
+    padding: 20px;
+    overflow:visible ;
+    border: 3px solid grey;
+    box-shadow: 0 0 5px;
+    border-radius: 5px;
+    background-color: transparent;
+  
+    /* background-color: aquamarine; */
+  }
