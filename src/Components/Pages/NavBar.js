@@ -1,6 +1,6 @@
 import React,{useContext} from "react";
 import AuthContext from "../Store/Auth-Context";
-import { Route,Routes } from "react-router-dom";
+import { Route,Routes,useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import classes from "./NavBar.module.css";
@@ -12,9 +12,11 @@ function MyNavbar() {
 
     const authCtx = useContext(AuthContext);
     const isLoggedIn = authCtx.isLoggedIn;
+    const navigate = useNavigate();
 
     const logoutHandler = () => {
       authCtx.logout();
+      navigate('/');
     }
   return (
     <div>
@@ -27,20 +29,21 @@ function MyNavbar() {
           <Nav className="me-auto " bg="dark" variant="dark">
             <Nav.Link
               as={Link}
-              to="/home"
+              to={isLoggedIn? '/home' : '/'}
               className={classes.titlelabels}
+              
             >
               Home
             </Nav.Link>
             <Nav.Link
-              to="/products"
+              to={isLoggedIn? '/products' : '/'}
               className={classes.titlelabels}
               as={Link}
             >
               Products
             </Nav.Link>
             <Nav.Link
-              to="/about"
+              to={isLoggedIn? '/about' : '/'}
               className={classes.titlelabels}
               as={Link}
             >

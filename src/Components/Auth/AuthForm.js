@@ -1,12 +1,15 @@
 import { Button, Card, Container, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import classes from "./AuthForm.module.css";
 import { useState, useRef, useContext } from "react";
 import AuthContext from "../Store/Auth-Context";
+
 
 const AuthForm = (props) => {
   const [isSignUp, setIsSignUp] = useState(true);
   const [isPassVisible, setIsPassVisible] = useState(false);
   const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
   const emailRef = useRef("");
   const passRef = useRef("");
   const passCRef = useRef("");
@@ -69,68 +72,83 @@ const AuthForm = (props) => {
         });
     }
   };
+  const forgotPasswordHandler = () => {
+    navigate("/forgotpassword");
+  };
 
   return (
     <div>
-    <img src={require("./blue.jpg")} alt="img" className={classes.backgroundDiv} />
-    <div className={classes.loginBox}>
-      <Card className={classes.Card}>
-        <h1>{isSignUp ? "Sign Up" : "Log In"}</h1>
-        <Form onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controlId="formGroupEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              required
-              placeholder="Enter email"
-              ref={emailRef}
-              style={{
-                backgroundColor: isSignUp ? "" : "black",
-                color: isSignUp ? "" : "white",
-              }}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formGroupPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type={isPassVisible ? "text" : "password"}
-              required
-              placeholder="Password"
-              ref={passRef}
-              style={{
-                backgroundColor: isSignUp ? "" : "black",
-                color: isSignUp ? "" : "white",
-              }}
-              onClick={passModeHandler}
-            />
-          </Form.Group>
-          {isSignUp && (
-            <Form.Group className="mb-3" controlId="formGroupPassword">
-              <Form.Label>Confirm Password</Form.Label>
+      <img
+        src={require("./blue.jpg")}
+        alt="img"
+        className={classes.backgroundDiv}
+      />
+      <div className={classes.loginBox}>
+        <Card className={classes.Card}>
+          <h1>{isSignUp ? "Sign Up" : "Log In"}</h1>
+          <Form onSubmit={submitHandler}>
+            <Form.Group className="mb-3" controlId="formGroupEmail">
+              <Form.Label>Email address</Form.Label>
               <Form.Control
-                type="password"
+                type="email"
                 required
-                placeholder="Confirm Password"
-                ref={passCRef}
+                placeholder="Enter email"
+                ref={emailRef}
+                style={{
+                  backgroundColor: isSignUp ? "" : "black",
+                  color: isSignUp ? "" : "white",
+                }}
               />
             </Form.Group>
-          )}
-          <Button variant="primary" type="submit">
-            {isSignUp ? "Sign Up" : "Log In"}
-          </Button>
-        </Form>
-      </Card>
-      <section
-        type="button"
-        className={classes.section}
-        onClick={authModeHandler}
-      >
-        <button>
-          {isSignUp
-            ? "Have an account ? Log In"
-            : "Dont have an account ? Sign Up"}
-        </button>
-      </section>
+            <Form.Group className="mb-3" controlId="formGroupPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type={isPassVisible ? "text" : "password"}
+                required
+                placeholder="Password"
+                ref={passRef}
+                style={{
+                  backgroundColor: isSignUp ? "" : "black",
+                  color: isSignUp ? "" : "white",
+                }}
+                onClick={passModeHandler}
+              />
+            </Form.Group>
+            {isSignUp && (
+              <Form.Group className="mb-3" controlId="formGroupPassword">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  required
+                  placeholder="Confirm Password"
+                  ref={passCRef}
+                />
+              </Form.Group>
+            )}
+            <Button variant="primary" type="submit">
+              {isSignUp ? "Sign Up" : "Log In"}
+            </Button>
+            <div className={classes.forgotPass}>
+              <Button
+                variant="link"
+                onClick={forgotPasswordHandler}
+              >
+                Forgot password?
+              </Button>
+            </div>
+          </Form>
+        </Card>
+        <section
+          type="button"
+          className={classes.section}
+          onClick={authModeHandler}
+        >
+          <button>
+            {isSignUp
+              ? "Have an account ? Log In"
+              : "Dont have an account ? Sign Up"}
+          </button>
+        </section>
       </div>
     </div>
   );

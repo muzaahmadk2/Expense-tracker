@@ -50,6 +50,9 @@
     background-color: #ad3e3e;
     border-color: #ffffff;
   }
+  .forgotPass button:hover{
+    background-color: white;
+  }
 
   .div img {
     background-repeat: no-repeat;

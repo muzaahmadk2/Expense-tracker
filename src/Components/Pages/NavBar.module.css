@@ -6,6 +6,10 @@
     font-weight: 5px;
     /* font-size: large; */
   }
+  .nav-link{
+    color: white;
+  }
+
   .button {
     border: none;
     cursor: pointer;
