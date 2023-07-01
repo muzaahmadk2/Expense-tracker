@@ -4,6 +4,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import ExpenseContext from "../../Store/Expense-Context";
 import "./AddExpenseForm.css";
 import Expenses from '../Expenses/Expenses';
+import axios from 'axios';
 
 const AddExpenseForm =() => {
   const expCtx = useContext(ExpenseContext);
@@ -14,6 +15,8 @@ const AddExpenseForm =() => {
 
   const addExpenseSubmitHandler = (e) => {
     e.preventDefault();
+    const useremail = localStorage.getItem('email');
+    const userId = useremail.replace(/[@.]/g, "");
     const enteredAmount = amountRef.current.value;
     const enteredDescription = descriptionRef.current.value;
     const enteredCategory = categoryRef.current.value;
@@ -30,9 +33,20 @@ const AddExpenseForm =() => {
       description: enteredDescription,
       category: enteredCategory,
     };
-    console.log("clicked");
-    expCtx.addExpense({ ...newexp });
-    // setIsExpense(true);
+    expCtx.addExpense(newexp);
+    const newExp = JSON.stringify(newexp);
+    try {
+      axios.post(
+        `https://expense-36902-default-rtdb.firebaseio.com/expenses/${userId}.json`,
+        newExp
+      );
+    } catch (error) {
+      alert(error);
+    }
+    
+    amountRef.current.value = "";
+    descriptionRef.current.value = "";
+    categoryRef.current.value = "";
   };
 
   return (

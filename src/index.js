@@ -12,7 +12,7 @@ import { ExpenseContextProvider } from "./Components/Store/Expense-Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <React.Fragment>
     <AuthProvider>
       <ExpenseContextProvider>
       <BrowserRouter>
@@ -20,7 +20,7 @@ root.render(
       </BrowserRouter>
       </ExpenseContextProvider>
     </AuthProvider>
-  </React.StrictMode>
+  </React.Fragment>
 );
 
 // If you want to start measuring performance in your app, pass a function

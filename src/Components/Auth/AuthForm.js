@@ -60,7 +60,7 @@ const AuthForm = (props) => {
           }
         })
         .then((data) => {
-          authCtx.login(data.idToken);
+          authCtx.login(data.idToken,enteredEmail);
           emailRef.current.value = "";
           passRef.current.value = "";
           if (isSignUp) {

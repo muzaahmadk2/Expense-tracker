@@ -3,7 +3,7 @@ import React,{ useState,useCallback } from "react";
 const AuthContext = React.createContext({
     token: '',
     isLoggedIn: false,
-    login: (token) => {},
+    login: (token,email) => {},
     logout: () => {}
 });
 
@@ -15,11 +15,13 @@ export const AuthProvider = (props) => {
     const loginHandler = (token,email) => {
         setToken(token);
         localStorage.setItem('token',token);
+        localStorage.setItem('email',email);
         
     }
     const logoutHandler = useCallback(() => {
         setToken(null);
         localStorage.removeItem('token');  
+        localStorage.removeItem('email');
         
     },[])
 
