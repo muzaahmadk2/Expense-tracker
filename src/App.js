@@ -5,15 +5,15 @@ import './App.css';
 import React, { useContext } from 'react';
 import Welcome from './Components/Pages/Welcome/Welcome';
 import ForgotPass from './Components/Pages/Forgot/ForgotPass';
-import { Route,Routes,redirect } from 'react-router-dom';
+import { Route,Routes,useNavigate } from 'react-router-dom';
 
 function App() {
   const authCtx = useContext(AuthContext);
-
+  const navigate = useNavigate();
   return (
     <React.Fragment>
       <NavBar/>
-      {!authCtx.isLoggedIn && <redirect to='/' />}
+      {/* {!authCtx.isLoggedIn && navigate('/')} */}
       <Routes>
       {!authCtx.isLoggedIn &&<Route path='/' exact element={<AuthForm/>} />}
       {!authCtx.isLoggedIn &&<Route path="/forgotpassword" element={<ForgotPass />} />}

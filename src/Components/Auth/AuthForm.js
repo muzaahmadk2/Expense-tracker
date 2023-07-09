@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import classes from "./AuthForm.module.css";
 import { useState, useRef, useContext } from "react";
 import AuthContext from "../Store/Auth-Context";
+import ExpenseContext from "../Store/Expense-Context";
 
 
 const AuthForm = (props) => {
   const [isSignUp, setIsSignUp] = useState(true);
   const [isPassVisible, setIsPassVisible] = useState(false);
   const authCtx = useContext(AuthContext);
+  const expCtx = useContext(ExpenseContext);
   const navigate = useNavigate();
   const emailRef = useRef("");
   const passRef = useRef("");
@@ -61,6 +63,7 @@ const AuthForm = (props) => {
         })
         .then((data) => {
           authCtx.login(data.idToken,enteredEmail);
+          expCtx.login();
           emailRef.current.value = "";
           passRef.current.value = "";
           if (isSignUp) {

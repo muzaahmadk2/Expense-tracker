@@ -23,7 +23,7 @@ const AddExpenseForm =() => {
     if (
       enteredAmount.trim().length < 0 ||
       enteredDescription.length < 1 ||
-      enteredCategory == "Category"
+      enteredCategory === "Category"
     ) {
       alert("Please enter all fields correctly");
       return;
@@ -33,13 +33,15 @@ const AddExpenseForm =() => {
       description: enteredDescription,
       category: enteredCategory,
     };
-    expCtx.addExpense(newexp);
+    
     const newExp = JSON.stringify(newexp);
+    if(!expCtx.isEditing){
     try {
       axios.post(
         `https://expense-36902-default-rtdb.firebaseio.com/expenses/${userId}.json`,
         newExp
-      );
+      ).then((res => expCtx.addExpense({...newexp,id:res.data.name})))
+      
     } catch (error) {
       alert(error);
     }
@@ -47,7 +49,28 @@ const AddExpenseForm =() => {
     amountRef.current.value = "";
     descriptionRef.current.value = "";
     categoryRef.current.value = "";
-  };
+  }else{
+    try {
+      axios.put(
+        `https://expense-36902-default-rtdb.firebaseio.com/expenses/${userId}/${expCtx.editingExpense.id}.json`,
+        newExp
+      ).then((res => expCtx.addExpense({...res.data, id:expCtx.editingExpense.id})))
+
+    } catch (error) {
+      alert(error);
+    }
+    expCtx.updateExpense();
+    
+    amountRef.current.value = "";
+    descriptionRef.current.value = "";
+    categoryRef.current.value = "";
+  }
+}
+  if(expCtx.isEditing){
+    amountRef.current.value = expCtx.editingExpense.amount;
+    descriptionRef.current.value = expCtx.editingExpense.description;
+    categoryRef.current.value = expCtx.editingExpense.category;
+  }
 
   return (
     <>
@@ -89,7 +112,7 @@ const AddExpenseForm =() => {
           <br />
           <div className="addExpenseButton">
           <Button variant="dark" type="submit" >
-            Submit
+            {!expCtx.isEditing ? "Submit" : "Update"}
           </Button></div>
         </Form>
       </Container>

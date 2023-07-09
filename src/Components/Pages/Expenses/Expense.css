@@ -1,47 +1,38 @@
+
 .expdes {
-  /* color: black; */
+  display: flex;
   font-weight: bold;
   font-size: 30px;
-  margin-left: 5%;
   color: #17181c;
-  
+  flex: 1;
+  min-width: 150px; 
+  max-width: 300px;
 }
 .expCat {
-
-  margin-left: 40%;
+  display: flex;
+  flex-basis: 200px; 
   font-size: 20px;
+  align-content: center;
+  justify-content: center;
   font-weight: 800;
   color: #17181c;
-  
-  margin-right: 10px;
-  display: flex;
-}
+  margin-top: 5px;
+  margin-right: 10px; 
+} 
 .expAmount {
-  
-  margin-left: 800px
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  font-size: 14px;
+  max-width: 400px;
 }
-.delexp {
-  background-color: blue;
-  font-family: "Times New Roman", Times, serif;
-
-  color: white;
-  margin-left: 10px;
-}
-.editexp {
-  /* background-color: gray; */
-  background-color: blue;
-  font-size: 15px;
-  font-family: "Times New Roman", Times, serif;
-  margin-left: 4%;
-}
-
-.moneyItemslabel {
+.moneyItemslabel { 
   text-align: center;
   border: 2px solid grey;
   border-width: 1px;
   border-color: rgb(192, 192, 192);
   font-family: "product sans";
-  width: 25%;
+  width: 130px;
   height: 43px;
   border-radius: 5px;
   font-weight: bold;
@@ -49,3 +40,26 @@
   color: white;
   background-color: darkred;
 }
+ .expenses {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: 0.5px solid grey;;
+}
+
+.expenses .editDeleteButtons {
+  align-items: center;
+  display: flex;
+  flex-basis: 200px;
+  justify-content: center;
+  flex-direction:column;
+}
+
+.expenses .editDeleteButtons button {
+  margin-top: 5px;
+  min-width: 80px;
+  min-height: 8px;
+  margin-bottom: 5px;
+} 

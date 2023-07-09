@@ -15,7 +15,7 @@ export const AuthProvider = (props) => {
     const loginHandler = (token,email) => {
         setToken(token);
         localStorage.setItem('token',token);
-        localStorage.setItem('email',email);
+        localStorage.setItem('email',email.replace(/[@.]/g, ""));
         
     }
     const logoutHandler = useCallback(() => {

@@ -7,16 +7,19 @@ import classes from "./NavBar.module.css";
 import Welcome from "./Welcome/Welcome";
 import Profile from "./Profile/Profile";
 import AddExpenseForm from "../Pages/AddExpenses/AddExpenseForm";
+import ExpenseContext from "../Store/Expense-Context";
 
 
 function MyNavbar() {
 
     const authCtx = useContext(AuthContext);
+    const expCtx = useContext(ExpenseContext);
     const isLoggedIn = authCtx.isLoggedIn;
     const navigate = useNavigate();
 
     const logoutHandler = () => {
       authCtx.logout();
+      expCtx.logout();
       navigate('/');
     }
   return (
