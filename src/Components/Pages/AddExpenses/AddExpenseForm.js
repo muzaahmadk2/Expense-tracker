@@ -1,22 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRef } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import ExpenseContext from "../../Store/Expense-Context";
 import "./AddExpenseForm.css";
 import Expenses from '../Expenses/Expenses';
 import axios from 'axios';
+import { useDispatch,useSelector } from "react-redux";
+import { expenseAction } from "../../Store/expenseSlice";
 
 const AddExpenseForm =() => {
-  const expCtx = useContext(ExpenseContext);
-  const [isExpense, setIsExpense] = useState(false);
   const amountRef = useRef();
   const descriptionRef = useRef();
   const categoryRef = useRef();
+  const dispatch = useDispatch();
+  const editingExpense = useSelector(state => state.expense.editingExpense);
+  const isEditing = useSelector(state => state.expense.isEditing);
+  const userId = localStorage.getItem('email');
 
   const addExpenseSubmitHandler = (e) => {
-    e.preventDefault();
-    const useremail = localStorage.getItem('email');
-    const userId = useremail.replace(/[@.]/g, "");
+    e.preventDefault();    
     const enteredAmount = amountRef.current.value;
     const enteredDescription = descriptionRef.current.value;
     const enteredCategory = categoryRef.current.value;
@@ -35,12 +36,12 @@ const AddExpenseForm =() => {
     };
     
     const newExp = JSON.stringify(newexp);
-    if(!expCtx.isEditing){
+    if(!isEditing){
     try {
       axios.post(
         `https://expense-36902-default-rtdb.firebaseio.com/expenses/${userId}.json`,
         newExp
-      ).then((res => expCtx.addExpense({...newexp,id:res.data.name})))
+      ).then((res => dispatch(expenseAction.addExpense({...newexp,id:res.data.name}))));
       
     } catch (error) {
       alert(error);
@@ -52,25 +53,41 @@ const AddExpenseForm =() => {
   }else{
     try {
       axios.put(
-        `https://expense-36902-default-rtdb.firebaseio.com/expenses/${userId}/${expCtx.editingExpense.id}.json`,
+        `https://expense-36902-default-rtdb.firebaseio.com/expenses/${userId}/${editingExpense.id}.json`,
         newExp
-      ).then((res => expCtx.addExpense({...res.data, id:expCtx.editingExpense.id})))
+      ).then((res => dispatch(expenseAction.addExpense({...res.data, id:editingExpense.id}))));
 
     } catch (error) {
       alert(error);
     }
-    expCtx.updateExpense();
+    dispatch(expenseAction.finishEdit());
     
     amountRef.current.value = "";
     descriptionRef.current.value = "";
     categoryRef.current.value = "";
   }
 }
-  if(expCtx.isEditing){
-    amountRef.current.value = expCtx.editingExpense.amount;
-    descriptionRef.current.value = expCtx.editingExpense.description;
-    categoryRef.current.value = expCtx.editingExpense.category;
+  if(isEditing){
+    amountRef.current.value = editingExpense.amount;
+    descriptionRef.current.value = editingExpense.description;
+    categoryRef.current.value = editingExpense.category;
   }
+  const getData = async () => {
+      let arr = [];
+      const res = await axios.get(
+        `https://expense-36902-default-rtdb.firebaseio.com/expenses/${userId}.json`
+      );
+
+      for (const key in res.data) {
+        arr.push({ ...res.data[key], id: key });
+      }
+      
+      dispatch(expenseAction.getData([...arr]))
+    }
+
+  useEffect(()=>{
+    getData();
+  },[]);
 
   return (
     <>
@@ -112,11 +129,11 @@ const AddExpenseForm =() => {
           <br />
           <div className="addExpenseButton">
           <Button variant="dark" type="submit" >
-            {!expCtx.isEditing ? "Submit" : "Update"}
+            {!isEditing ? "Submit" : "Update"}
           </Button></div>
         </Form>
       </Container>
-      {expCtx.isExpense && <Expenses />}
+      <Expenses />
     </>
   );
 }

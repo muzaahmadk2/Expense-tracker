@@ -2,14 +2,14 @@ import React, { useContext,useEffect, useRef, useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { Form, Button, Row, Col,Spinner } from "react-bootstrap";
-import AuthContext from "../../Store/Auth-Context";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
   const [isLoading,setIsLoading] = useState(false);
   const fullNameRef = useRef("");
   const photoUrlRef = useRef("");
+  const token = useSelector(state => state.auth.token);
 
   const cancelHandler = () => {
     navigate('/home');
@@ -21,7 +21,7 @@ const Profile = () => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        idToken: authCtx.token,
+        idToken: token,
       }),
       header: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ const Profile = () => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        idToken: authCtx.token,
+        idToken: token,
         displayName: fullName,
         photoUrl: photoUrl,
         returnSecureToken: true,

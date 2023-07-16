@@ -2,15 +2,13 @@ import { Button, Card, Container, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import classes from "./AuthForm.module.css";
 import { useState, useRef, useContext } from "react";
-import AuthContext from "../Store/Auth-Context";
-import ExpenseContext from "../Store/Expense-Context";
-
+import { useDispatch } from "react-redux";
+import { authAction } from "../Store/authSlice";
 
 const AuthForm = (props) => {
   const [isSignUp, setIsSignUp] = useState(true);
   const [isPassVisible, setIsPassVisible] = useState(false);
-  const authCtx = useContext(AuthContext);
-  const expCtx = useContext(ExpenseContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRef = useRef("");
   const passRef = useRef("");
@@ -62,8 +60,9 @@ const AuthForm = (props) => {
           }
         })
         .then((data) => {
-          authCtx.login(data.idToken,enteredEmail);
-          expCtx.login();
+          dispatch(
+            authAction.login({ token: data.idToken, email: enteredEmail })
+          );
           emailRef.current.value = "";
           passRef.current.value = "";
           if (isSignUp) {
@@ -132,10 +131,7 @@ const AuthForm = (props) => {
               {isSignUp ? "Sign Up" : "Log In"}
             </Button>
             <div className={classes.forgotPass}>
-              <Button
-                variant="link"
-                onClick={forgotPasswordHandler}
-              >
+              <Button variant="link" onClick={forgotPasswordHandler}>
                 Forgot password?
               </Button>
             </div>

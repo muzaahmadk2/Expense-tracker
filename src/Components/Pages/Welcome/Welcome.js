@@ -2,14 +2,12 @@ import React, { useContext, useState } from "react";
 import { Route, Link,useNavigate, Routes } from "react-router-dom";
 import "./Welcome.css";
 import { Button } from "react-bootstrap";
-import AuthContext from "../../Store/Auth-Context";
-
+import { useSelector } from "react-redux";
 
 
 function Welcome() {
-  const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const token = useSelector(state => state.auth.token);
   const addExpenseHandler = () => {
     navigate('/addexpenses')
   }
@@ -22,7 +20,7 @@ function Welcome() {
       method: "POST",
       body: JSON.stringify({
         requestType: 'VERIFY_EMAIL',
-        idToken: authCtx.token,
+        idToken: token,
       }),
       header: {
         "Content-Type": "application/json",

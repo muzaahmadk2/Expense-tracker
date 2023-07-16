@@ -1,4 +1,37 @@
-
+.premButton{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+.premButton button{
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.0rem;
+  width: 10rem;
+  padding: 0.3rem;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: #d38e0e;
+  color: #f7f7f7;
+  cursor: pointer;
+  outline: none;
+  transition-property: background,box-shadow;
+  transition-duration: 0.35s;
+  
+}
+.premButton button:hover{
+  border: 2px solid #0d6efd;
+  color: #0d6efd;
+  background-color: #17181c;
+  box-shadow: 5px 5px 10px #d38e0e;
+}
 .expdes {
   display: flex;
   font-weight: bold;

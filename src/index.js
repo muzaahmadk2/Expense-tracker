@@ -3,23 +3,21 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { AuthProvider } from "./Components/Store/Auth-Context";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import Store from "./Components/Store/Store";
 
 import "../node_modules/react-bootstrap/dist/react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
-import { ExpenseContextProvider } from "./Components/Store/Expense-Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.Fragment>
-    <AuthProvider>
-      <ExpenseContextProvider>
+    <Provider store={Store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-      </ExpenseContextProvider>
-    </AuthProvider>
+    </Provider>
   </React.Fragment>
 );
 

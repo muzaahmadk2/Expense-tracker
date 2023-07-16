@@ -1,16 +1,17 @@
 import React, { useContext } from "react";
 import "./Expense.css";
 import { Button } from "react-bootstrap";
-import ExpenseContext from "../../Store/Expense-Context";
+import { useDispatch } from "react-redux";
+import { expenseAction } from "../../Store/expenseSlice";
 
 const ExpenseItem = (props) => {
-  const expCtx = useContext(ExpenseContext);
+  const dispatch = useDispatch();
 
   const editItemHandler = () =>{
-    expCtx.editExpense(props.elem);
+    dispatch(expenseAction.editExpense(props.elem));
   }
   const deleteItemHandler = () => {
-    expCtx.removeExpense(props.elem.id);
+    dispatch(expenseAction.removeExpense(props.elem.id));
   }
   return (
     <div className="expenses">
