@@ -1,7 +1,7 @@
 .myCardDiv {
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 5px;
+  box-shadow: 0 0 11px;
   border: 2px solid grey;
   margin: 30px;
   padding: 20px;
@@ -9,3 +9,14 @@
   
     /* background-color: aquamarine; */
   }
+  .myCardDivDark {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 11px;
+    border: 2px solid white;
+    margin: 30px;
+    padding: 20px;
+    text-align: center;
+    
+      /* background-color: aquamarine; */
+    }

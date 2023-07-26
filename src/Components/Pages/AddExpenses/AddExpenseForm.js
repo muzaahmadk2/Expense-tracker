@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { useRef } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import "./AddExpenseForm.css";
@@ -15,6 +15,8 @@ const AddExpenseForm =() => {
   const editingExpense = useSelector(state => state.expense.editingExpense);
   const isEditing = useSelector(state => state.expense.isEditing);
   const userId = localStorage.getItem('email');
+  const isDark = useSelector((state) => state.theme.isDark);
+  const dataFetch = useSelector((state)=> state.expense.dataFetch);
 
   const addExpenseSubmitHandler = (e) => {
     e.preventDefault();    
@@ -72,7 +74,7 @@ const AddExpenseForm =() => {
     descriptionRef.current.value = editingExpense.description;
     categoryRef.current.value = editingExpense.category;
   }
-  const getData = async () => {
+  const getData = useCallback(async () => {
       let arr = [];
       const res = await axios.get(
         `https://expense-36902-default-rtdb.firebaseio.com/expenses/${userId}.json`
@@ -83,14 +85,18 @@ const AddExpenseForm =() => {
       }
       
       dispatch(expenseAction.getData([...arr]))
-    }
+    },[])
 
-  useEffect(()=>{
-    getData();
-  },[]);
+    useEffect(() => {
+      if (!dataFetch) {
+        console.log('Fetching data for the first time.');
+        getData();
+        dispatch(expenseAction.setDataFetch(true));
+      }
+    }, [dataFetch, getData, dispatch]);
 
   return (
-    <>
+    <div className={isDark ? 'theme' : ''}>
       <Container className="addExpenseDiv">
         <h2>Expense Tracker</h2>
 
@@ -134,7 +140,7 @@ const AddExpenseForm =() => {
         </Form>
       </Container>
       <Expenses />
-    </>
+    </div>
   );
 }
 

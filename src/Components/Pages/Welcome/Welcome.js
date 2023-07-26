@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 function Welcome() {
   const navigate = useNavigate();
   const token = useSelector(state => state.auth.token);
+  const isDark = useSelector((state) => state.theme.isDark);
   const addExpenseHandler = () => {
     navigate('/addexpenses')
   }
@@ -45,7 +46,7 @@ function Welcome() {
   }
 
   return (
-    <div>
+    <div className={isDark ? 'theme' : ''}>
     <div className="welcome">
       <span >
         Welcome To Expense Tracker!!!

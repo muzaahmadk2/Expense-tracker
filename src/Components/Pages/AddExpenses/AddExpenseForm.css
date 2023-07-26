@@ -1,6 +1,6 @@
 .addExpenseDiv {
     display: flex;
-    box-shadow: 0 0 5px;
+    box-shadow: 0 0 11px;
     border: 2px solid grey;
     margin: 30px;
     padding: 20px;
@@ -38,4 +38,13 @@
       flex-direction: column;
       align-items: center;
     }
+  }
+  .theme .addExpenseDiv h2{
+   color: #f7f7f7;
+  }
+  .theme .addExpenseButton button{
+    background-color: black;
+  }
+  .theme .addExpenseDiv{
+    border: 2px solid white;
   }

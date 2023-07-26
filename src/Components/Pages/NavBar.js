@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, Button } from "react-bootstrap";
 import classes from "./NavBar.module.css";
 import Welcome from "./Welcome/Welcome";
 import Profile from "./Profile/Profile";
 import AddExpenseForm from "../Pages/AddExpenses/AddExpenseForm";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutAndClearExpense } from "../Store/authSlice";
+import { themeAction } from "../Store/themeSlice";
+
 
 function MyNavbar() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isDark = useSelector((state) => state.theme.isDark);
+  const toggle = useSelector((state) => state.theme.isToggle);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,9 +22,19 @@ function MyNavbar() {
     dispatch(logoutAndClearExpense());
     navigate("/");
   };
+  const toggleHandler = () => {
+    if (isDark) {
+      dispatch(themeAction.setLight());
+    } else {
+      dispatch(themeAction.setDark());
+    }
+  };
   return (
     <div>
-      <Navbar bg="dark" variant="light">
+      <Navbar
+        bg={isDark ? "dark" : "light"}
+        variant={isDark ? "dark" : "light"}
+      >
         <Container>
           <Navbar.Brand className={classes.myweb}>MyWebLink</Navbar.Brand>
 
@@ -47,9 +61,22 @@ function MyNavbar() {
               About Us
             </Nav.Link>
             {isLoggedIn && (
-              <button className={classes.button} onClick={logoutHandler}>
+              <button
+                className={classes.button}
+                onClick={logoutHandler}
+                style={{ color: isDark ? "white" : "black" }}
+              >
                 Logout
               </button>
+            )}
+            {toggle && (
+              <Button
+                variant={!isDark ? "outline-dark" : "outline-light"}
+                onClick={toggleHandler}
+                style={{ marginLeft: "400px" }}
+              >
+                {!isDark ? "Dark Mode" : "Light Mode"}{" "}
+              </Button>
             )}
           </Nav>
         </Container>

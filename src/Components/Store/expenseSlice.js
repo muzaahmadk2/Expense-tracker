@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 
-const initialExpenseState = {expense: [],editingExpense: '',isEditing:false}
+const initialExpenseState = {expense: [],editingExpense: '',isEditing:false,dataFetch: false}
 
 const expenseSlice = createSlice({
     name: 'expenses',
@@ -12,6 +12,7 @@ const expenseSlice = createSlice({
         },
         getData(state,action){
             console.log(action.payload);
+            
             for(let i in action.payload){
                 state.expense.push(action.payload[i]);
             }
@@ -39,6 +40,9 @@ const expenseSlice = createSlice({
         },
         clearExpense(state){
             state.expense = [];
+        },
+        setDataFetch (state, action){
+            state.dataFetch = action.payload;
         }
         
     } 

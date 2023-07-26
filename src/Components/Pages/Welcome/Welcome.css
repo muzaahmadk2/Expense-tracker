@@ -5,10 +5,11 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin-left: 10px;
     margin-right: 10px;
-    margin-top: 5px;
-    
+    /* margin-top: 1px; */
+    padding: 20px;
     
   }
+  
 .addExpense{
   display: flex;
   justify-content: center;
@@ -18,6 +19,9 @@
   margin-right: 10px;
   padding-bottom: 10px;
   border-bottom: 2px solid grey;
+}
+.verify{
+  margin-top: 5px;
 }
 .addExpense button{
   position: relative;
@@ -43,4 +47,8 @@
   border: 2px solid #0d6efd;
   color: #0d6efd;
   background-color: #17181c;
+}
+
+.theme .addExpense{
+  border-bottom: none;
 }

@@ -2,6 +2,7 @@ import AuthForm from './Components/Auth/AuthForm';
 import NavBar from './Components/Pages/NavBar'
 // import AuthContext from './Components/Store/Auth-Context';
 import './App.css';
+// import './dark-theme.css';
 import React, { useContext } from 'react';
 import Welcome from './Components/Pages/Welcome/Welcome';
 import ForgotPass from './Components/Pages/Forgot/ForgotPass';
@@ -12,13 +13,13 @@ function App() {
   // const authCtx = useContext(AuthContext);
   const isLoggedIn = useSelector( state => state.auth.isLoggedIn);
   return (
-    <React.Fragment>
+    <div > 
       <NavBar/>
       <Routes>
       {!isLoggedIn &&<Route path='/' exact element={<AuthForm/>} />}
       {!isLoggedIn &&<Route path="/forgotpassword" element={<ForgotPass />} />}
       </Routes>
-    </React.Fragment>
+    </div>
   );
 }
 
